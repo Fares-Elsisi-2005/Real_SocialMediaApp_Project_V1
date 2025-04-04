@@ -486,7 +486,7 @@ function editPostBtnClicked(postObj){
 
 }
 
- 
+ console.log(window.location.pathname.endsWith("index.html") + "home here")
 
 if (window.location.pathname.endsWith("index.html")) {
     getPostsData()
