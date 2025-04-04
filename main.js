@@ -317,7 +317,7 @@ function updatePostReq(title, body, postId) {
          showAlert("you edit post", "success");
          const modalInstance = bootstrap.Modal.getInstance(CreatePostModalEl);
          modalInstance.hide();
-         if (window.location.pathname.endsWith("home.html")) {
+         if (window.location.pathname.endsWith("index.html")) {
             console.log("home page")
             
             getPostsData()
@@ -359,7 +359,7 @@ function deletePostReq(postId) {
              const modalInstance = bootstrap.Modal.getInstance(DeletePostModalEl);
              modalInstance.hide();
                         
-             if (window.location.pathname.endsWith("home.html")) {
+             if (window.location.pathname.endsWith("index.html")) {
                 console.log("home page")
                 
                 getPostsData()
@@ -488,7 +488,7 @@ function editPostBtnClicked(postObj){
 
  
 
-if (window.location.pathname.endsWith("home.html")) {
+if (window.location.pathname.endsWith("index.html")) {
     getPostsData()
 
 }

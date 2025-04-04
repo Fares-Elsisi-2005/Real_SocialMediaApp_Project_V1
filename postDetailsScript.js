@@ -6,6 +6,7 @@ const ID =urlParams.get("postId");
 
 
 function getspecficPostData(PostID) {
+    toggleLoder(true)
     
     return axios.get(`https://tarmeezacademy.com/api/v1/posts/${PostID}`)
          .then((response) => {
@@ -94,6 +95,8 @@ function getspecficPostData(PostID) {
              specificPostEl.innerHTML = content;
               setupUIpostDetails()
 
+             toggleLoder(false)
+             
 
 
  
@@ -102,6 +105,8 @@ function getspecficPostData(PostID) {
      
 
 function SendComment(){
+
+    toggleLoder(true)
 
     let commentInputEl = document.getElementById("comment-input");
 
@@ -130,7 +135,9 @@ function SendComment(){
     
                 }).catch((error)=>{
                     showAlert(error.response.data.message, "danger");
-                })  
+                }).finally(() => {
+                    toggleLoder(false)
+                })
          
 }
 

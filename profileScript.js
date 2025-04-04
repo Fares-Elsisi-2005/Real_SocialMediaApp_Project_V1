@@ -16,9 +16,11 @@ console.log(userID )
 
 
 function getuserData(userId) {
+    toggleLoder(true)
+
   axios.get(`https://tarmeezacademy.com/api/v1/users/${userID}`)
-.then((response) => {
-   
+    .then((response) => {
+    
     let user = response.data.data
     console.log(user)
      
@@ -30,13 +32,8 @@ function getuserData(userId) {
     document.getElementById("user-info-userName").innerHTML = user.username;
     document.getElementById("number-info-posts").innerHTML = user.posts_count;
     document.getElementById("number-info-comments").innerHTML = user.comments_count;
- 
-    
-  
-    
-
-     
-
+   toggleLoder(false)
+        
 })
 }
 getuserData()
@@ -45,6 +42,7 @@ getuserData()
 
 function getuserPostsData() {
     
+    toggleLoder(true)
     
     return axios.get(`https://tarmeezacademy.com/api/v1/users/${userID}/posts`)
         .then((response) => {
@@ -54,11 +52,7 @@ function getuserPostsData() {
             
             let editBtnContent;
             let deleteBtnContent;
-
-
-            
-
-           
+ 
             for (post of posts) {
               
 
@@ -111,7 +105,10 @@ function getuserPostsData() {
            
           
  
-     })
+            toggleLoder(false)
+
+        })
+    
 }
  getuserPostsData()
  
