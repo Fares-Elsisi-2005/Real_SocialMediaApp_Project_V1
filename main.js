@@ -488,6 +488,9 @@ function editPostBtnClicked(postObj){
 
  console.log(window.location.pathname.endsWith("index.html") + "home here")
 
+ if (window.location.pathname === "/" || window.location.pathname === "/index.html") {
+    getPostsData();
+}
 
 function printFromMain() {
     console.log("printFromMain")
@@ -504,4 +507,3 @@ function toggleLoder(show = true) {
     }
 
 }
-getPostsData()
