@@ -1,9 +1,4 @@
- 
 
- 
-
- 
-// get element
 let postsEl = document.getElementById("posts");
 let userNameEl = document.getElementById("userName-input");
 let passwordEl = document.getElementById("password-input");
@@ -14,6 +9,7 @@ let DeletePostModalEl = document.getElementById("deleteModal");
 let loginDivEl = document.getElementById("logged-in-div");
 let logoutDivEl = document.getElementById("logout-div");
 const addBtn = document.getElementById("add-btn");
+const navLi_Profile = document.getElementById("li-Profile");
 
 
 
@@ -43,7 +39,11 @@ window.addEventListener("scroll", function () {
 /*// ==================== INFINITE SCROLL ============= //*/
 
 
-setupUI()
+
+
+
+
+/* ===========================================================(FUNCTIONS)========================================================================= */
  
 /* start buttons */
 function loginBtnClicked(){
@@ -60,9 +60,9 @@ function registerBtnClicked() {
     const registerName = document.getElementById("register-Name-input").value;
     const registerUsrerName = document.getElementById("register-userName-input").value;
     const registerPassword = document.getElementById("register-password-input").value;
-    const progileImage = document.getElementById("profile-image-input").files[0];
+    const profileImage = document.getElementById("profile-image-input").files[0];
 
-    registerReq(registerName, registerUsrerName, registerPassword,progileImage);
+    registerReq(registerName, registerUsrerName, registerPassword,profileImage);
 }
 
 function createANewPostClicked() {
@@ -102,7 +102,7 @@ function showuserProfile(userId) {
 /* end buttons */
  
 
-/* start requests */
+/*===================================================== start requests========================================== */
 function getPostsData(reload=true, page = 1) {
     toggleLoder(true);
    return axios.get(`https://tarmeezacademy.com/api/v1/posts?limit=5&page=${page}`)
@@ -137,7 +137,7 @@ function getPostsData(reload=true, page = 1) {
             <div class="card col-9 shadow my-3">
                 <div class="card-header ">
                     <span  onclick="showuserProfile(${post.author.id})" style="cursor: pointer; ">
-                    <img src="${typeof post.author.profile_image !== 'string' ? "./img/profile-pic/grayUser.png" : post.author.profile_image}" alt="progileImge" class="rounded-circle border border-3" style="width: 40px; height: 40px;  ">
+                    <img src="${typeof post.author.profile_image !== 'string' ? "./img/profile-pic/grayUser.png" : post.author.profile_image}"  class="rounded-circle border border-3" style="width: 40px; height: 40px;  ">
                     <b style="font-size: 14px;">${post.author.email == null ? "" : post.author.email}</b> 
                     </span>
                     ${deleteBtnContent}
@@ -224,7 +224,7 @@ function loginReq(username, password) {
         
     })
 }
-function registerReq(name, username, password, progileImage) {
+function registerReq(name, username, password, profileImage) {
     toggleLoder(true);
 
     // prepar the data
@@ -232,7 +232,7 @@ function registerReq(name, username, password, progileImage) {
     formData.append("name", name);
     formData.append("username", username);
     formData.append("password", password);
-    formData.append("image", progileImage);
+    formData.append("image", profileImage);
 
     // send the data
     axios.post("https://tarmeezacademy.com/api/v1/register", formData)
@@ -381,11 +381,11 @@ function deletePostReq(postId) {
              
          });
 }
-/* end requests */
+/* ==================================================end requests================================================= */
 
 
 
-/* start ui */
+/* ============================start UI=============================== */
 function logout() {
     localStorage.removeItem("user");
     localStorage.removeItem("usertoken");
@@ -438,14 +438,16 @@ function setupUI() {
 
         loginDivEl.style.setProperty("display", "flex","important");
         logoutDivEl.style.setProperty("display", "none", "important");
+        navLi_Profile.style.setProperty("display", "none", "important");
         
 
     } else { // for logged in user
            if (addBtn != null) { // bec. this file is shared with onther html file that has not has add button
-        addBtn.style.setProperty("display", "block", "important");
+        addBtn.style.setProperty("display", "flex", "important");
         }
         loginDivEl.style.setProperty("display", "none","important");
         logoutDivEl.style.setProperty("display", "flex", "important");
+        navLi_Profile.style.setProperty("display", "block", "important");
 
         // showing the profile image + user name in navbar
         document.getElementById("nav-username").innerText = getCurrentUser().username;
@@ -455,7 +457,10 @@ function setupUI() {
 
     }
 }
-/* end ui */
+/* ============================end UI===================================== */
+
+
+/* ========================GENERAL===================== */
  
 function getCurrentUser() {
     let user = null;
@@ -463,7 +468,6 @@ function getCurrentUser() {
     storageUser == null ? user : user = JSON.parse(storageUser);
     return user;
 }
-
 
 function postClicked(postId) {
     window.location = `postDetails.html?postId=${postId}`;
@@ -486,17 +490,9 @@ function editPostBtnClicked(postObj){
 
 }
 
- console.log(window.location.pathname.endsWith("index.html") + "home here")
-
- if (window.location.pathname === "/" || window.location.pathname === "/index.html") {
-    getPostsData();
-}
-
 function printFromMain() {
     console.log("printFromMain")
 }
-
- 
 
 function toggleLoder(show = true) {
     if (show) {
@@ -507,3 +503,19 @@ function toggleLoder(show = true) {
     }
 
 }
+/* ========================//GENERAL//===================== */
+
+
+
+/* =======================================================//(FUNCTIONS)//====================================================================== */
+
+
+
+setupUI()
+
+ console.log(window.location.pathname.endsWith("index.html") + "home here")
+
+ if (window.location.pathname === "/" || window.location.pathname === "/index.html") {
+    getPostsData();
+}
+
